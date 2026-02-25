@@ -1,0 +1,146 @@
+.lang {
+	display: flex;
+	gap: 0.5rem;
+	color: #8ba0b5;
+}
+.lang a {
+	text-decoration: none;
+	color: #6b859e;
+	font-size: 0.9rem;
+}
+.lang a.active {
+	color: #1e3a5f;
+	font-weight: 500;
+}
+.lang span {
+	color: #cbd5e1;
+}
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 1.5em;
+	margin-bottom: 0.5em;
+	font-weight: 600;
+	color: #0f172a;
+}
+h1 { font-size: 1.75rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.3em; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25em; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.1rem; }
+p {
+	margin-bottom: 1em;
+}
+a {
+	color: #1d4b6e;
+	text-decoration: none;
+	border-bottom: 1px solid #b3d4f0;
+	transition: border-color 0.2s;
+}
+a:hover {
+	border-bottom-color: #1d4b6e;
+}
+code {
+	background: #f1f5f9;
+	color: #475569;
+	padding: 0.2em 0.4em;
+	border-radius: 4px;
+	font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+	font-size: 0.9em;
+}
+pre {
+	background: #1e293b;
+	color: #e2e8f0;
+	padding: 1em;
+	border-radius: 8px;
+	overflow-x: auto;
+	margin: 1em 0;
+}
+pre code {
+	background: transparent;
+	color: inherit;
+	padding: 0;
+	font-size: 0.875rem;
+	line-height: 1.6;
+}
+blockquote {
+	border-left: 4px solid #3b82f6;
+	background: #f8fafc;
+	margin: 1em 0;
+	padding: 0.75em 1em;
+	color: #475569;
+	border-radius: 0 6px 6px 0;
+}
+blockquote p:last-child {
+	margin-bottom: 0;
+}
+ul, ol {
+	margin: 1em 0;
+	padding-left: 1.5em;
+}
+li {
+	margin-bottom: 0.5em;
+}
+ul ul, ol ol, ul ol, ol ul {
+	margin-top: 0.5em;
+	margin-bottom: 0;
+}
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1em 0;
+	font-size: 0.95em;
+}
+th, td {
+	border: 1px solid #e2e8f0;
+	padding: 0.75em;
+	text-align: left;
+}
+th {
+	background: #f1f5f9;
+	font-weight: 600;
+	color: #1e293b;
+}
+tr:nth-child(even) {
+	background: #f8fafc;
+}
+hr {
+	border: none;
+	border-top: 1px solid #e2e8f0;
+	margin: 2em 0;
+}
+img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 6px;
+	margin: 1em 0;
+}
+strong {
+	font-weight: 600;
+	color: #0f172a;
+}
+em {
+	font-style: italic;
+}
+
+/*
+
+.lang {
+        display: flex;
+        gap: 0.5rem;
+        color: #8ba0b5;
+}
+
+.lang a {
+        text-decoration: none;
+        color: #6b859e;
+        font-size: 0.9rem;
+}
+
+.lang a.active {
+        color: #1e3a5f;
+        font-weight: 500;
+}
+
+.lang span {
+        color: #cbd5e1;
+}
+
+*/
