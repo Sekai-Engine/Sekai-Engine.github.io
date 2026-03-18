@@ -28,6 +28,8 @@ h4 { font-size: 1.1rem; }
 p {
 	margin-bottom: 1em;
 }
+
+/*
 a {
 	color: #1d4b6e;
 	text-decoration: none;
@@ -37,6 +39,8 @@ a {
 a:hover {
 	border-bottom-color: #1d4b6e;
 }
+*/
+
 code {
 	background: #f1f5f9;
 	color: #475569;

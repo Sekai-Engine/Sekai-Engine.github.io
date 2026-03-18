@@ -19,6 +19,17 @@ def md(file_data):
             ptr += 1
             continue
         
+        if '|' in line and ptr + 1 < len(lines) and set(lines[ptr + 1].strip()).issubset({'|', '-', ' ', ':'}):
+            table_html, new_ptr = private.parse_table(lines, ptr)
+            html_lines += table_html
+            ptr = new_ptr
+            continue
+
+        html, e = private.set_image(line)
+        if e:
+            ptr += 1
+            html_lines += html
+            continue
         html, e = private.set_title(line)
         if e:
             ptr += 1

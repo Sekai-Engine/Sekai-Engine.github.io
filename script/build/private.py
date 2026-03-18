@@ -37,8 +37,32 @@ def load_files_path(ROOT, templates, components):
         template_dict[template_name] = template
     return template_dict
 
+# github to atomgit
+def hub2atom(page_data):
+    # fix zh-CN image
+    prefix = "https://raw.atomgit.com/Sekai-Engine/sekai.github.io/raw/master"
+    pattern = r'src=(["\'])(?!/?https?://)(/[^"\']*\.(?:png|jpg))(["\'"])'
+    def replace_func(match):
+        quote1 = match.group(1)
+        path = match.group(2)  
+        quote2 = match.group(3)
+        
+        if path.startswith('/'):
+            new_path = f"{prefix}{path}"
+        else:
+            new_path = path
+        return f'src={quote1}{new_path}{quote2}'
+    
+    page_data = re.sub(pattern, replace_func, page_data)
+    
+    # fix zh-CN url
+    page_data = page_data.replace("github.com", "atomgit.com")
+
+    return page_data
+    
+
 # 文件识别模板并写入
-def set_template(ROOT, OUT, pages, templates, components, pages_name):
+def set_template(ROOT, OUT, pages, templates, components, pages_name, status):
     template_dict = load_files_path(ROOT, templates, components)
     for item in Path(os.path.join(ROOT, pages)).rglob('*'):
         if item.is_file() and item.suffix in [".html", ".md"]:
@@ -52,6 +76,8 @@ def set_template(ROOT, OUT, pages, templates, components, pages_name):
                 if item.name[-3:] == ".md":
                     item = str(item)[:-3] + ".html"
                     page_data = markdown.md(page_data)
+                if '/zh-CN/' in str(item) and status != "debug":
+                    page_data = hub2atom(page_data)
                 template = template.replace(pages_name, page_data)
                 out_path = OUT + str(item)[len(os.path.join(ROOT, pages)):]
                 path = Path(out_path)

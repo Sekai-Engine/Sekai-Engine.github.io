@@ -31,6 +31,13 @@ def options(version):
             defa='9999',
             desc='设置调试使用的端口.'
         ),
+        private.CmdOption(
+            abbr='-f',
+            full='--force',
+            vari='',
+            defa='',
+            desc='强制调试端口,将杀死当前端口的冲突进程.'
+        ),
     ]
     args = sys.argv.copy()
     if long_options[0].set_options(args):
@@ -45,6 +52,7 @@ def options(version):
     print(long_options[2].options(args))
     result_shell["status"] = long_options[2].options(args),
     result_shell["port"] = int(long_options[3].options(args)),
+    result_shell['force'] = long_options[4].set_options(args)
 
     return result_shell
     
