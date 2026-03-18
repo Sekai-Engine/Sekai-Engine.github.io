@@ -1,95 +1,71 @@
-<!DOCTYPE html>
-<html lang="zh">
-	<head>
-		<meta charset="UTF-8">
-<link rel="shortcut icon" href="/static/img/sekai-logo.png">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>sekai · 文字冒险引擎</title>
-<link rel="stylesheet" href="/static/css/style.css">
-<script src="/static/js/main.js"></script>
+<!-- js.html -->
 
-	</head>
-	<body>
-		<div class="container">
-			<div class="nav">
-	<div class="nav-links">
-		<a href="/">
-			<img class="logo" width="32" height="32" src="/static/img/sekai-logo.png">
-		</a>
-		<a href="/wiki/zh_CN/目录.html">Wiki</a>
-		<!--<a href="/news">News</a>-->
-		<!--<a href="/games">Games</a>-->
-	</div>
-	<div class="download">
-		<a href="#" class="btn-download" id="downloadBtn">Download</a>
-		<div class="download-menu" id="downloadMenu">
-			<a href="https://atomgit.com/Sekai-Engine/sekai-template/releases/download/v0.0.1/sekai.exe" class="download-item">
-				<span class="download-icon">🪟</span>
-				<span>Windows</span>
-			</a>
-			<a href="https://atomgit.com/Sekai-Engine/sekai-template/releases/download/v0.0.1/sekai.x86_64" class="download-item">
-				<span class="download-icon">🐧</span>
-				<span>Linux</span>
-			</a>
-		</div>
-	</div>
-</div>
+<script>
+    // 1. 定义支持的语言 (去掉 export，直接在脚本内定义)
+    const SUPPORTED_LOCALES = ['zh-CN', 'en-US'];
+    const DEFAULT_LOCALE = 'en-US';
 
+    function getUserLocale() {
+        const path = window.location.pathname;
+        const pathParts = path.split('/').filter(p => p !== ''); // 过滤掉空字符串
 
-			<!-- index.html -->
+        // 检查当前 URL 是否已经包含语言标识 (避免死循环)
+        // 例如：如果路径是 /zh-CN/index.html，parts[0] 就是 'zh-CN'
+        if (pathParts.length > 0 && SUPPORTED_LOCALES.includes(pathParts[0])) {
+            return null; 
+        }
 
-<link rel="stylesheet" href="./static/css/index.css">
+        // 优先级 1: LocalStorage (用户手动选择过)
+        const storedLocale = localStorage.getItem('user_locale');
+        if (storedLocale && SUPPORTED_LOCALES.includes(storedLocale)) {
+            return storedLocale;
+        }
 
-<div class="hero">
-	<div class="hero-content">
-		<div class="sub">文字冒险游戏引擎</div>
-		<h1>Sekai Engine</h1>
-		<div class="concept">🌐让世界成为你的舞台</div>
-	</div>
-	<div class="hero-image">
-		<img src="./static/img/icon.png" alt="Hero Image">
-	</div>
+        // 优先级 2: 浏览器设置
+        const browserLang = navigator.language || navigator.userLanguage; 
+        if (SUPPORTED_LOCALES.includes(browserLang)) {
+            return browserLang;
+        }
+        
+        // 优先级 3: 模糊匹配 (如 zh-TW -> zh-CN)
+        const langCode = browserLang.split('-')[0]; 
+        const matched = SUPPORTED_LOCALES.find(loc => loc.startsWith(langCode));
+        if (matched) {
+            return matched;
+        }
 
-</div>
+        // 优先级 4: 默认值
+        return DEFAULT_LOCALE;
+    }
 
-<div class="desc">
-	<p><strong>sekai引擎</strong>是专注于文字冒险类游戏创作的极简引擎。</p>
-	<p>轻量、无依赖，使用自研<strong>解释器</strong>与极简<strong>编辑器</strong>——可快速构建视觉小说、互动叙事或ADV游戏，适合立开发者、作者或视觉小说爱好者快速开发游戏。</p>
-	<p>内核基于<strong>Godot引擎</strong>开发，大型团队可嵌入Godot开发，实现3D场景、物理引擎等更多功能，实现从视觉小说到开放互动的无缝升级。</p>
-</div>
+    function redirectBasedOnLocale() {
+        const targetLocale = getUserLocale();
+        
+        if (!targetLocale) {
+            // 已经在正确的语言目录下，无需操作
+            // 可选：这里可以渲染实际内容，而不是跳转
+            document.body.innerHTML = "<h1>Welcome!</h1>"; 
+            return; 
+        }
 
-<!-- 特征标签 -->
-<div class="tags">
-	<span class="tag">视觉小说</span>
-	<span class="tag">ADV框架</span>
-	<span class="tag">零配置开发</span>
-	<span class="tag">跨平台</span>
-	<span class="tag">MIT开源</span>
-	<span class="tag">Godot引擎</span>
-</div>
+        // 构造目标路径
+        // 假设目录结构是：/zh-CN/index.html
+        // 当前是根目录 /index.html，我们要跳到 /zh-CN/index.html
+        
+        // 获取当前文件名 (通常是 index.html)
+        const currentFileName = window.location.pathname.split('/').pop() || 'index.html';
+        
+        // 构造新 URL: http://ip/zh-CN/index.html
+        const finalUrl = `/${targetLocale}/${currentFileName}`;
 
-<div class="partners">
-	<h2>生态伙伴</h2>
-	<ul>
+        console.log(`Redirecting to: ${finalUrl}`);
 
-		<li>
-			<a href="https://godotengine.org/" target="_blank">
-				<img src="https://godotengine.org/assets/logo.svg" alt="Godot 引擎 Logo" width="100">
-				<span>Godot 引擎</span>
-			</a>
-		</li>
+        // 【关键点】使用 location.href 进行硬跳转，这会触发浏览器重新请求新文件
+        // 不要用 replaceState，因为那是单页应用(SPA)用的，你是多页面文件跳转
+        window.location.href = finalUrl;
+    }
 
-	</ul>
-</div>
+    // 执行
+    redirectBasedOnLocale();
+</script>
 
-
-			<div class="footer">
-				<a href="https://github.com/Sekai-Engine/sekai">GitHub</a>
-<a href="https://atomgit.com/Sekai-Engine/sekai">AtomGit</a>
-<span>Sekai-Engine · 2026</span>
-
-
-			</div>
-		</div>
-	</body>
-</html>
