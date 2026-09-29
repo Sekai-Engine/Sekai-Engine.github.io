@@ -1,8 +1,10 @@
 #!/bin/sh
 
-MODEL_NAME="qwen/Qwen2.5-1.5B-Instruct"
+#MODEL_NAME="qwen/Qwen2.5-1.5B-Instruct"
+MODEL_NAME="qwen/Qwen2.5-1.5B-Instruct-GPTQ-Int8"
 MODEL_PATH="https://www.modelscope.cn/"
-TARGET_DIR="./Qwen2.5-1.5B-Instruct"
+#TARGET_DIR="./Qwen2.5-1.5B-Instruct"
+TARGET_DIR="./Qwen2.5-1.5B-Instruct-GPTQ-Int8"
 # 检查 git-lfs 是否安装
 check_git_lfs() {
 	if git lfs -v &> /dev/null; then
