@@ -134,18 +134,90 @@
 }
 .partners img {
 	width: 80px;
-	height: auto;
+	height: 50px;
 	object-fit: contain;
 }
 .partners span {
 	color: #3a546d;
 	font-size: 0.9rem;
 }
+
+/* 作品展示 */
+.games {
+        margin: 3rem 0;
+        text-align: center;
+}
+.games h2 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #0b2a41;
+        margin-bottom: 1.5rem;
+}
+.games ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: nowrap;              /* 不换行 */
+        gap: 1.5rem;
+        overflow-x: auto;               /* 横向滚动 */
+        padding: 0.5rem 0.25rem 1rem;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+}
+.games ul::-webkit-scrollbar {
+        height: 6px;
+}
+.games ul::-webkit-scrollbar-thumb {
+        background: #c9dcf0;
+        border-radius: 3px;
+}
+.games ul::-webkit-scrollbar-track {
+        background: transparent;
+}
+.games li {
+        flex: 0 0 auto;
+        width: 260px;
+        scroll-snap-align: start;
+        background: #fff;
+        border: 1px solid #c9dcf0;   /* 浅蓝边框 */
+        border-radius: 12px;
+        padding: 1rem;
+        transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+.games li:hover {
+        border-color: #46749b;       /* 悬停加深，跟 footer 链接同色 */
+        box-shadow: 0 4px 12px rgba(0,20,40,0.08);
+        transform: translateY(-2px);
+}
+.games a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+}
+.games img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 8px;
+        display: block;
+}
+.games span {
+        color: #3a546d;
+        font-size: 0.95rem;
+        font-weight: 500;
+}
+
 @media (max-width: 500px) {
 	.hero h1 { font-size: 2.6rem; }
 	.hero { flex-direction: column; text-align: center; }
 	.hero-image img { max-width: 160px; }
 	.partners ul { gap: 1rem; }
 	.partners li { padding: 1rem; }
+	.games ul { gap: 1rem; }
+        .games li { width: 200px; }
 }
+
+
 
